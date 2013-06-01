@@ -1,6 +1,17 @@
 dref = require("dref")
 
+
+###
+ Context is the object which is passed in the 
+ second parameter of .run()
+###
+
 class Context 
+  
+  ###
+  ###
+
+  __isContext: true
 
   ###
   ###
@@ -59,6 +70,11 @@ class Context
   ###
 
   child: (data) -> new Context data, @
+
+  ###
+  ###
+
+  @cast: (target = {}) -> return if target.__isContext then target else new Context target
 
 
 module.exports = Context
