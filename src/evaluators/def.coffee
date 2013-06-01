@@ -14,7 +14,7 @@ class Evaluator extends require("./base")
     run  = node.find("run")
 
     @_commands.register name, (node, context, next) =>  
-      @all.run run, context.child(node.value), next
+      @all.run run, context.child(node.value).child({ currentNode: node }), next
 
     next null, false
 

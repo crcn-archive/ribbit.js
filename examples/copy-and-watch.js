@@ -4,7 +4,7 @@ var ribbit = require("..");
 ribbit.run({
   "def each": {
     "run": function(context, next) {
-
+      
     }
   },
   "def watch": {
@@ -28,7 +28,8 @@ run({
     "run": {
       "each": {
         "cwd": __dirname,
-        "files": ["./src"]
+        "files": ["./src"],
+        "run": 
       }
     }
   }
