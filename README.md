@@ -3,16 +3,20 @@ Javascript Tasks
 ### Example task:
 
 ```javascript
-var capirona = require("capirona");
+var ribbit = require("ribbit");
 
-capirona.make({
-	"def hello/:name": {
-		"run": function(target, next) {
-			console.log("hello %s!", target.data.name);
+capirona.run({
+	"def hello": {
+		"run": function(context, next) {
+			console.log("hello %s!", context.get("message"));
 			next();	
 		}
 	}
-}).run("hello/craig", function() {
+}).run({
+  "hello": {
+    "message": "Craig"
+  }
+}, function() {
 	console.log("done");
 });
 ```
@@ -20,29 +24,11 @@ capirona.make({
 
 ### API
 
-#### .make(task)
-
 creates a new runnable script
 
-#### .run(command, target, callback)
+#### .run(source, target, callback)
 
-runs the given task. The target can be any value. For example:
 
-```javascript
-
-capirona.make({
-        "def log": {
-                "run": function(target, next) {
-                        console.log(target.value || target.data.text);
-                        next();
-                }
-        }
-}).
-run("log", "hello world!").
-run("log", {
-	text: "hello world!"
-});
-```
 
 
 
