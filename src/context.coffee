@@ -1,4 +1,5 @@
-dref = require("dref")
+dref = require "dref"
+type = require "type-component"
 
 
 ###
@@ -17,6 +18,7 @@ class Context
   ###
 
   constructor: (@_data = {}, @_parent = null) ->
+
 
   ###
   ###
@@ -65,11 +67,14 @@ class Context
   root: () -> 
     p = @
     p = p._parent while p._parent
+    p
 
   ###
   ###
 
-  child: (data) -> new Context data, @
+  child: (data) -> 
+    d = if type(data) is "object" then data else { value: data }
+    new Context d, @
 
   ###
   ###

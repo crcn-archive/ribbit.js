@@ -1,4 +1,4 @@
-var cap = require(".."),
+var rib = require(".."),
 expect = require("expect.js");
 
 describe("definition test", function() {
@@ -6,7 +6,7 @@ describe("definition test", function() {
   var contexts = {};
 
   it("can define a context", function() {
-    contexts.root = new cap.Context({
+    contexts.root = new rib.Context({
       name: {
         first: "craig",
         last: "condon"

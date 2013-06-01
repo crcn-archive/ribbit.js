@@ -1,6 +1,10 @@
 type  = require "type-component"
 async = require "async"
 
+###
+ normalizes passed json doc
+###
+
 class Node
   
   ###
@@ -11,8 +15,19 @@ class Node
   ###
   ###
 
-  constructor: (@name, @value) ->
+  constructor: (@value, @name = "") ->
     @_children = []
+
+  ###
+  ###
+
+  find: (name) ->
+    return @ if name is @name
+    for child in @_children
+      found = child.find(name)
+      if found
+        return found
+    return false
   
   ###
    traverses all the nodes ~ async
@@ -31,8 +46,13 @@ class Node
   ###
 
   addChild: (child) ->
-    child._parent = cild
-    @_child.push child
+    child._parent = child
+    @_children.push child
+
+  ###
+  ###
+
+  childAt: (index) -> @_children[index]
 
   ###
    parses a document into a traversable node
@@ -40,9 +60,9 @@ class Node
 
   @cast: (value, name) -> 
     return source if source?.__isExpression 
-    node = new Node(name, name)
+    node = new Node(value, name)
 
-    if t = type(value) is "array"
+    if (t = type(value)) is "array"
       for v in value
         node.addChild @cast v
     else if t is "object"
@@ -51,3 +71,4 @@ class Node
 
     node
 
+module.exports = Node

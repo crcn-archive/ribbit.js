@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "ribbit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "url": ""
   },
@@ -9,7 +9,12 @@
   "dependencies": {
     "async": "0.2.x",
     "crema": "0.1.x",
-    "dref": "0.0.x"
+    "dref": "0.0.x",
+    "comerr": "0.0.x",
+    "ejs": "0.8.x",
+    "outcome": "0.0.x",
+    "type-component": "0.0.x",
+    "flatstack": "0.0.x"
   },
   "devDependencies": {
     "expect.js": "~0.2.0",
