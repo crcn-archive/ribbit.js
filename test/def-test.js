@@ -14,6 +14,22 @@ describe("definition test", function() {
     }).run("sayHello", { message: "hello" }, next);
   });
 
+
+  it("can define, and run a simple definition without a context", function(next) {
+    cap.run({
+      "def sayHello": {
+        "run": function(context) {
+          expect(context.get("message")).to.be("hello");
+          expect(context.get("currentNode.name")).to.be("sayHello");
+        }
+      }
+    }).run({
+      "sayHello": {
+        message: "hello"
+      }
+    }, next);
+  })
+
   it("can catch a thrown error", function(next) {
     cap.run({
       "def hello": {
