@@ -18,6 +18,7 @@ class Evaluator extends require("./base")
       description : node.value.description or ""
       params      : node.value.params or {}
       public      : node.value.public or false
+      inherit     : node.value.inherit or []
 
 
     @_commands.register ops, (node, context, next) =>    

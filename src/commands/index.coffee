@@ -1,4 +1,6 @@
-comerr = require "comerr"
+comerr     = require "comerr"
+toarray    = require "toarray"
+deepExtend = require "deep-extend"
 
 ###
 ###
@@ -17,7 +19,7 @@ class Commands
   describe: () -> 
     desc = []
     for key of @_commands
-      desc.push @_commands[key].options
+      desc.push @_inherit @_commands[key].options
     desc
 
   ###
@@ -35,6 +37,22 @@ class Commands
       return callback new comerr.NotFound "command \"#{name}\" not found"
 
     ops.listener.call @, node, context, callback
+
+
+
+  ###
+  ###
+
+  _inherit: (options) ->
+  
+    from = toarray options.inherit
+    newOps = deepExtend {}, options
+
+    for cmd in from
+      newOps = deepExtend @_inherit(@_commands[cmd]?.options or {}), newOps
+
+    newOps
+
 
 
     
