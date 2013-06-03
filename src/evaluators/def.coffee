@@ -13,8 +13,22 @@ class Evaluator extends require("./base")
     name = node.name.substr(4)
     run  = node.find("run")
 
-    @_commands.register name, (node, context, next) =>  
-      @all.run run, context.child(node.value).child({ currentNode: node }), next
+    ops = 
+      name        : name
+      description : node.value.description or ""
+      params      : node.value.params or {}
+      public      : node.value.public or false
+
+
+    @_commands.register ops, (node, context, next) =>    
+      childContext = context.child({ caller: node }).child(node.value)
+
+      setup = childContext.getLocal("setup")
+
+      if setup
+        setup context
+
+      @all.run run, childContext, next
 
     next null, false
 

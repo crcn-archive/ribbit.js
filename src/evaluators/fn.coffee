@@ -10,7 +10,7 @@ class Evaluator extends require("./base")
   ###
 
   run: (node, context, next) -> 
-
+  
     try 
       if node.value.length < 2
         node.value.call @all, context

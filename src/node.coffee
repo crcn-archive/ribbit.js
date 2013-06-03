@@ -10,20 +10,20 @@ class Node
   ###
   ###
 
-  __isExpression: true
+  __isNode: true
 
   ###
   ###
 
   constructor: (@value, @name = "") ->
-    @_children = []
+    @children = []
 
   ###
   ###
 
   find: (name) ->
     return @ if name is @name
-    for child in @_children
+    for child in @children
       found = child.find(name)
       if found
         return found
@@ -37,7 +37,7 @@ class Node
     each @, (err, continueTraversing) =>
       return next(err) if err? or continueTraversing is false
 
-      async.eachSeries @_children, ((child, next) =>
+      async.eachSeries @children, ((child, next) =>
         child.traverse each, next
       ), next
 
@@ -47,19 +47,19 @@ class Node
 
   addChild: (child) ->
     child._parent = child
-    @_children.push child
+    @children.push child
 
   ###
   ###
 
-  childAt: (index) -> @_children[index]
+  childAt: (index) -> @children[index]
 
   ###
    parses a document into a traversable node
   ###
 
   @cast: (value, name) -> 
-    return source if source?.__isExpression 
+    return value if value?.__isNode 
     node = new Node(value, name)
 
     if (t = type(value)) is "array"

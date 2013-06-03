@@ -19,16 +19,15 @@ class Context
 
   constructor: (@_data = {}, @_parent = null) ->
 
+  ###
+  ###
+
+  getLocal: (key) -> dref.get(@_data, key)
 
   ###
   ###
 
-  get: (key) -> @_get(key) ? @_parent?.get(key)
-
-  ###
-  ###
-
-  _get: (key) -> dref.get(@_data, key)
+  get: (key) -> @getLocal(key) ? @_parent?.get(key)
 
   ###
   ###
@@ -58,7 +57,7 @@ class Context
 
   scope: (key) -> 
     p = @
-    p = p._parent while p and not p._get(key)
+    p = p._parent while p and not p.getLocal(key)
     p or @
 
   ###

@@ -1,3 +1,7 @@
+toarray = require "toarray"
+async   = require "async"
+Node    = require "../node"
+
 evaluators = 
   def  : require("./def")  # defines a command
   call : require("./call") # calls a command (string)
@@ -28,10 +32,12 @@ class Evaluators
   ###
 
   run: (node, context, next) ->
-    node.traverse ((child, next) =>
-      @_run child, context, next
+    async.eachSeries toarray(node), ((node, next) =>
+      Node.cast(node).traverse ((child, next) =>
+        @_run child, context, next
+      ), next
     ), next
-
+    
   ###
   ###
 

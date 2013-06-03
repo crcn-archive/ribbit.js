@@ -14,18 +14,27 @@ class Commands
   ###
   ###
 
-  register: (name, listener) ->
-    @_commands[name] = listener
+  describe: () -> 
+    desc = []
+    for key of @_commands
+      desc.push @_commands[key].options
+    desc
+
+  ###
+  ###
+
+  register: (options, listener) ->
+    @_commands[options.name] = { listener: listener, options: options }
 
   ###
   ###
 
   execute: (name, node, context, callback) ->
 
-    unless listener = @_commands[name]  
+    unless ops = @_commands[name]  
       return callback new comerr.NotFound "command \"#{name}\" not found"
 
-    listener.call @, node, context, callback
+    ops.listener.call @, node, context, callback
 
 
     
