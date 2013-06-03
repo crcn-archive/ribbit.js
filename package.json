@@ -14,7 +14,8 @@
     "ejs": "0.8.x",
     "outcome": "0.0.x",
     "type-component": "0.0.x",
-    "flatstack": "0.0.x"
+    "flatstack": "0.0.x",
+    "toarray": "0.0.x"
   },
   "devDependencies": {
     "expect.js": "~0.2.0",
